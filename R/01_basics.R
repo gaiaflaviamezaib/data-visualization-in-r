@@ -33,6 +33,7 @@ p_bad <- ggplot(summary_tbl, aes(species, mean)) +
   labs(title = "Mean +/- SE only", y = "body mass (g)", x = NULL)
 
 # ...a violin + jittered points shows the whole distribution and n
+set.seed(1)  # same jitter on every rebuild
 p_good <- ggplot(peng, aes(species, body_mass_g, colour = species)) +
   geom_violin(fill = NA) +
   geom_jitter(width = 0.15, alpha = 0.5, size = 1) +

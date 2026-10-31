@@ -46,6 +46,7 @@ my_theme <- theme_minimal(base_size = 12) +
         plot.title = element_text(face = "bold"),
         legend.position = "bottom")
 
+set.seed(1)  # same jitter on every rebuild
 p <- ggplot(latest, aes(reorder(continent, lifeExp, FUN = median), lifeExp, fill = continent)) +
   geom_boxplot(alpha = 0.8, outlier.shape = NA) +
   geom_jitter(width = 0.15, size = 0.8, alpha = 0.6) +
