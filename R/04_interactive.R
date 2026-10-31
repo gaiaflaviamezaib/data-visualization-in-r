@@ -19,6 +19,13 @@ p <- ggplot(gapminder, aes(gdpPercap, lifeExp, colour = continent)) +
 widget <- ggplotly(p, tooltip = c("text", "x", "y")) |>
   animation_opts(frame = 600, redraw = FALSE) |>
   animation_slider(currentvalue = list(prefix = "year "))
+# plotly keys its data by a random id and htmlwidgets picks a random element id,
+# so the HTML changed on every rebuild. Fix both so it only changes with the plot
+id <- widget$x$cur_data
+names(widget$x$attrs)[names(widget$x$attrs) == id] <- "gapminder"
+names(widget$x$visdat)[names(widget$x$visdat) == id] <- "gapminder"
+widget$x$cur_data <- "gapminder"
+widget$elementId <- "gapminder"
 
 # selfcontained = TRUE needs pandoc, so the JS libraries go in a side folder
 saveWidget(widget, "output/gapminder_animated.html",
